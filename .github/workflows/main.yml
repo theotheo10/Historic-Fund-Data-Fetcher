@@ -1,0 +1,26 @@
+name: Build histórico completo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Rodar build_history.py
+        run: python build_history.py
+
+      - name: Upload history_full.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: history_full
+          path: history_full.json
+          retention-days: 7
