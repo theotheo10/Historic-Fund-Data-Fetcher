@@ -1,0 +1,19 @@
+name: Build histórico
+
+on:
+  workflow_dispatch:   # roda manualmente, quando você quiser
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python build_history.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: history_full
+          path: history_full.json
+          retention-days: 7
